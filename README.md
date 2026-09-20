@@ -2,7 +2,7 @@
 
 An interactive dashboard and analysis identifying why telecom customers churn, which segments carry the most revenue risk, and where a retention strategy would have the highest impact.
 
-**[Live dashboard →](ADD_YOUR_DEPLOYED_LINK_HERE)**
+**[Live dashboard →]([https://telco-churn-analysis-six.vercel.app/])**
 
 ---
 
