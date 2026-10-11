@@ -12,10 +12,14 @@ README. It is meant to be read, not just run — the point of a portfolio
 project is being able to explain every line of this in an interview.
 """
 
+from pathlib import Path
+
 import pandas as pd
 
 
-def load_data(path: str = "../data/telco.csv") -> pd.DataFrame:
+def load_data(path: str | Path | None = None) -> pd.DataFrame:
+    if path is None:
+        path = Path(__file__).resolve().parents[1] / "data" / "telco.csv"
     df = pd.read_csv(path)
     return df
 

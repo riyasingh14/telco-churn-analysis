@@ -1,0 +1,28 @@
+{
+  "priority_segment": "High risk \u00b7 month-to-month",
+  "recommended_action": "Offer a one-year contract migration with a targeted retention incentive.",
+  "target_customers": 117,
+  "average_churn_probability": 0.6418,
+  "expected_revenue_at_risk": 302969.63,
+  "scenarios": [
+    {
+      "scenario": "Low",
+      "incremental_retention_rate": 0.05,
+      "estimated_customers_retained": 5.9,
+      "estimated_revenue_protected": 15148.48
+    },
+    {
+      "scenario": "Base",
+      "incremental_retention_rate": 0.1,
+      "estimated_customers_retained": 11.7,
+      "estimated_revenue_protected": 30296.96
+    },
+    {
+      "scenario": "High",
+      "incremental_retention_rate": 0.15,
+      "estimated_customers_retained": 17.6,
+      "estimated_revenue_protected": 45445.44
+    }
+  ],
+  "assumption": "Scenario rates are illustrative incremental retention uplift among the target segment; protected revenue equals expected revenue at risk multiplied by the uplift."
+}

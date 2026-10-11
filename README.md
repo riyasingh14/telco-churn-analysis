@@ -2,7 +2,18 @@
 
 An interactive dashboard and analysis identifying why telecom customers churn, which segments carry the most revenue risk, and where a retention strategy would have the highest impact.
 
-**[Live dashboard →]([https://telco-churn-analysis-six.vercel.app/])**
+**[Live dashboard →](https://telco-churn-analysis-six.vercel.app/)**
+
+## Portfolio extension: SQL + Power BI
+
+This repository now includes a compact end-to-end analytics layer alongside the Python analysis and static dashboard:
+
+- **PostgreSQL star schema** with a customer-level churn fact table and reusable contract, payment, offer, geography, and churn-reason dimensions.
+- **Repeatable SQL transformations** that load the supplied CSV and create analyst-facing KPI and segment-performance views.
+- **Power BI build pack** with the data model, ready-to-create DAX measures, and a three-page dashboard specification.
+- **Business definitions** for every KPI, including scope and interpretation caveats.
+
+See the [data model](docs/data-model.md), [KPI definitions](docs/kpi-definitions.md), and [Power BI build guide](powerbi/README.md).
 
 ---
 
@@ -71,12 +82,52 @@ telco-churn-project/
 ## How to run
 
 ```bash
-pip install pandas
-cd analysis
-python churn_analysis.py
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python analysis/churn_analysis.py
 ```
 
 Then open `dashboard/telco-churn-dashboard.html` in any browser — no server or build step required.
+
+### SQL analytics layer
+
+The SQL workflow is designed to be fast to reproduce locally with Docker Desktop and PostgreSQL 16:
+
+```bash
+docker compose up -d --wait
+docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U analyst -d telco_churn -f /workspace/sql/00_schema.sql
+docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U analyst -d telco_churn -f /workspace/sql/01_load_raw.sql
+docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U analyst -d telco_churn -f /workspace/sql/02_transform.sql
+```
+
+The resulting PostgreSQL schema is `churn_analytics`. The two most useful views for ad hoc analysis are:
+
+- `churn_analytics.vw_executive_kpis`
+- `churn_analytics.vw_churn_segment_performance`
+
+For the Power BI build steps, relationships, DAX measures, and report layout, follow [powerbi/README.md](powerbi/README.md).
+
+### Retention opportunity model
+
+The project also includes an explainable logistic-regression model that scores active customers, weights their risk by source CLTV, and exports a ranked intervention list:
+
+```bash
+.venv/bin/python analysis/retention_opportunity.py
+```
+
+It creates reproducible output files in `outputs/`, including model metrics, top drivers, customer-level expected revenue at risk, and a segment/action summary. See [the retention model notes](docs/retention-opportunity-model.md) for the methodology and limitations.
+
+### Decision brief and responsible use
+
+The live dashboard starts with a decision brief for the highest-priority segment, including low/base/high retention scenarios and explicit assumptions. A concise EU/GDPR note is included in the dashboard and expanded in [privacy-and-ethics.md](docs/privacy-and-ethics.md). The project is a public-data portfolio demonstration, not a production profiling or automated decision system.
+
+## Business questions answered
+
+1. Which customer segments have the highest churn rate?
+2. Where is the greatest lifetime revenue at risk?
+3. Which churn reasons indicate a pricing issue versus a service or competitor issue?
+4. Which customer attributes should a retention team use to prioritise investigation?
+5. Which active customers represent the highest estimated revenue at risk, and what should the retention team try first?
 
 ## Limitations
 

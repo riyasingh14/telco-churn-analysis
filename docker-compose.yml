@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: telco-churn-postgres
+    environment:
+      POSTGRES_DB: telco_churn
+      POSTGRES_USER: analyst
+      POSTGRES_PASSWORD: telco_dev
+    ports:
+      - "5432:5432"
+    working_dir: /workspace
+    volumes:
+      - .:/workspace:ro
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U analyst -d telco_churn"]
+      interval: 2s
+      timeout: 5s
+      retries: 15
+
+volumes:
+  postgres_data:

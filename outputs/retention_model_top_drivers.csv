@@ -1,0 +1,21 @@
+feature,coefficient,effect
+numeric__Satisfaction Score,-6.638085724620308,Lower churn propensity
+numeric__Number of Referrals,-1.8786415615098437,Lower churn propensity
+categorical__Online Security_Yes,-1.5377127870780527,Lower churn propensity
+categorical__Dependents_Yes,-1.1906631083068429,Lower churn propensity
+categorical__Online Security_No,1.141187258324885,Higher churn propensity
+categorical__Contract_Two Year,-1.1396509384485574,Lower churn propensity
+numeric__Tenure in Months,-1.1360543006971782,Lower churn propensity
+categorical__Referred a Friend_No,-0.9267757878069635,Lower churn propensity
+categorical__Contract_Month-to-Month,0.8832200559893764,Higher churn propensity
+categorical__Offer_Offer A,0.8299958925646079,Higher churn propensity
+categorical__Dependents_No,0.7941375795536765,Higher churn propensity
+categorical__Offer_Offer D,-0.7566959136480038,Lower churn propensity
+categorical__Senior Citizen_No,-0.6422055602163165,Lower churn propensity
+categorical__Offer_Offer C,-0.5388271055294209,Lower churn propensity
+numeric__Monthly Charge,0.5332229322961299,Higher churn propensity
+categorical__Referred a Friend_Yes,0.5302502590537973,Higher churn propensity
+categorical__Premium Tech Support_Yes,-0.5130268434797974,Lower churn propensity
+categorical__Streaming Music_No,-0.4952397498386246,Lower churn propensity
+categorical__Online Backup_Yes,-0.42718588807438257,Lower churn propensity
+categorical__Offer_Offer E,0.41227391724704937,Higher churn propensity

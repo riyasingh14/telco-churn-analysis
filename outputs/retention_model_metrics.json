@@ -1,0 +1,16 @@
+{
+  "training_customers": 4941,
+  "test_customers": 1648,
+  "test_churn_rate": 0.2834,
+  "roc_auc": 0.9956,
+  "average_precision": 0.9905,
+  "model": "Logistic regression with scaled numeric and one-hot categorical features",
+  "excluded_leakage_fields": [
+    "Customer Status",
+    "Churn Label",
+    "Churn Score",
+    "Churn Category",
+    "Churn Reason",
+    "CLTV (used only for prioritisation)"
+  ]
+}

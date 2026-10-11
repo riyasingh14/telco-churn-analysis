@@ -160,6 +160,49 @@
   }
   .reset-btn:hover { color: var(--ink); border-color: var(--accent-line); }
 
+  .decision-brief {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-top: 3px solid var(--bad);
+    border-radius: 4px;
+    padding: 18px;
+    margin-bottom: 22px;
+  }
+  .decision-brief h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    margin: 0 0 4px;
+  }
+  .decision-brief > p { margin: 0 0 14px; color: var(--muted); font-size: 0.82rem; }
+  .decision-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 14px; }
+  .decision-card, .scenario-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 14px;
+  }
+  .eyebrow {
+    color: var(--muted);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .decision-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.18rem; margin: 5px 0 10px; }
+  .decision-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .decision-stat { border-left: 2px solid var(--bad); padding-left: 8px; }
+  .decision-stat strong { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+  .decision-stat span { color: var(--muted); font-size: 0.68rem; line-height: 1.25; display: block; }
+  .decision-action { margin: 12px 0 0; font-size: 0.82rem; line-height: 1.4; }
+  .scenario-table { width: 100%; margin-top: 8px; font-size: 0.77rem; border-collapse: collapse; }
+  .scenario-table th, .scenario-table td { padding: 7px 4px; text-align: right; border-bottom: 1px solid var(--border); }
+  .scenario-table th:first-child, .scenario-table td:first-child { text-align: left; }
+  .scenario-table tr.base td { font-weight: 700; color: var(--good); }
+  .assumption { font-size: 0.7rem; line-height: 1.35; color: var(--muted); margin: 9px 0 0; }
+  .privacy-note { margin-top: 14px; border-top: 1px solid var(--border); padding-top: 11px; }
+  .privacy-note summary { cursor: pointer; color: var(--muted); font-size: 0.76rem; font-weight: 600; }
+  .privacy-note p { color: var(--muted); font-size: 0.72rem; line-height: 1.45; margin: 8px 0 0; max-width: 105ch; }
+
   .kpi-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -316,6 +359,7 @@
   @media (max-width: 760px) {
     .kpi-row { grid-template-columns: repeat(2, 1fr); }
     .chart-row { grid-template-columns: 1fr; }
+    .decision-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -366,6 +410,39 @@
     <div class="spacer"></div>
     <button class="reset-btn" id="resetAll">Reset all filters</button>
   </div>
+
+  <section class="decision-brief" aria-labelledby="decisionBriefTitle">
+    <h2 id="decisionBriefTitle">Retention decision brief</h2>
+    <p>Model-guided priority for the next retention cycle. This brief uses active customers only and is intentionally separate from the historical churn charts below.</p>
+    <div class="decision-grid">
+      <div class="decision-card">
+        <div class="eyebrow">Priority customer segment</div>
+        <div class="decision-title">High-risk · month-to-month</div>
+        <div class="decision-stats">
+          <div class="decision-stat"><strong>117</strong><span>active customers to target</span></div>
+          <div class="decision-stat"><strong>64.2%</strong><span>average predicted churn probability</span></div>
+          <div class="decision-stat"><strong>$303.0K</strong><span>expected revenue at risk</span></div>
+        </div>
+        <p class="decision-action"><strong>Suggested intervention:</strong> offer a one-year contract migration with a targeted retention incentive. Test this against a control group before scaling.</p>
+      </div>
+      <div class="scenario-card">
+        <div class="eyebrow">Illustrative retention scenarios</div>
+        <table class="scenario-table">
+          <thead><tr><th>Scenario</th><th>Incremental retention</th><th>Customers retained</th><th>Revenue protected</th></tr></thead>
+          <tbody>
+            <tr><td>Low</td><td>5%</td><td>~6</td><td>$15.1K</td></tr>
+            <tr class="base"><td>Base</td><td>10%</td><td>~12</td><td>$30.3K</td></tr>
+            <tr><td>High</td><td>15%</td><td>~18</td><td>$45.4K</td></tr>
+          </tbody>
+        </table>
+        <p class="assumption">Assumption: the intervention delivers a 5%, 10%, or 15% incremental retention uplift within this 117-customer segment. Revenue protected = expected revenue at risk × uplift; values are illustrative, not a forecast.</p>
+      </div>
+    </div>
+    <details class="privacy-note">
+      <summary>EU / GDPR portfolio note</summary>
+      <p>This project uses a public portfolio dataset and is not used to make decisions about real people. In a real Irish or EU deployment, pseudonymous customer IDs, location, and behavioural data can still be personal data. A team would document a lawful basis and purpose, minimise fields, restrict access, define retention periods, assess profiling risk (including a DPIA where appropriate), support data-subject rights, and keep human review over any retention action. The model should prioritise outreach—not make automated adverse decisions.</p>
+    </details>
+  </section>
 
   <div class="kpi-row" id="kpiRow"></div>
 

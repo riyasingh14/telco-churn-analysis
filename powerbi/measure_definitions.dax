@@ -1,0 +1,40 @@
+-- Create these measures on fact_customer_churn in Power BI Desktop.
+
+Customers = COUNTROWS(fact_customer_churn)
+
+Churned Customers =
+CALCULATE([Customers], fact_customer_churn[churned_flag] = TRUE())
+
+Churn Rate % =
+DIVIDE([Churned Customers], [Customers])
+
+Revenue at Risk =
+CALCULATE(
+    SUM(fact_customer_churn[total_revenue]),
+    fact_customer_churn[churned_flag] = TRUE()
+)
+
+Average Monthly Charge = AVERAGE(fact_customer_churn[monthly_charge])
+
+Churned Average Monthly Charge =
+CALCULATE([Average Monthly Charge], fact_customer_churn[churned_flag] = TRUE())
+
+Average Tenure (Months) = AVERAGE(fact_customer_churn[tenure_in_months])
+
+Churned Average Tenure (Months) =
+CALCULATE([Average Tenure (Months)], fact_customer_churn[churned_flag] = TRUE())
+
+Churned Customer Satisfaction =
+CALCULATE(
+    AVERAGE(fact_customer_churn[satisfaction_score]),
+    fact_customer_churn[churned_flag] = TRUE()
+)
+
+High Risk Customers =
+CALCULATE([Customers], fact_customer_churn[churn_score] >= 75)
+
+High Risk CLTV =
+CALCULATE(
+    SUM(fact_customer_churn[cltv]),
+    fact_customer_churn[churn_score] >= 75
+)
